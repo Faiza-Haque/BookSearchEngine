@@ -1,0 +1,8 @@
+QUESTIONS TO ASK JOEM!!!:
+1. async login({ body }, res) {
+    const user = await User.findOne({ $or: [{ username: body.username }, { email: body.email }] });
+    
+    ---when I am looking at this code I understand that the username and email is used for user to login to the account...
+    but when I go the LoginForm.jsx-- there is only two properties which is email and password-- so because it doesnt have a username property in the loginform--is it going to cause an error for me????
+
+
