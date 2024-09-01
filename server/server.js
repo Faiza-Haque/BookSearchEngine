@@ -4,6 +4,8 @@ const { expressMiddleware } = require("@apollo/server/express4")
 const path = require('path');
 const db = require('./config/connection');
 // const routes = require('./routes');
+const typeDefs = require("./schemas/typeDefs")
+const resolvers = require("./schemas/resolvers")
 
 const server = new ApolloServer({
   typeDefs,
