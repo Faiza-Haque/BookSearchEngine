@@ -1,14 +1,23 @@
 const jwt = require('jsonwebtoken');
+const {GraphQLError} = require ('graphql');
 
 // set token secret and expiration date
 const secret = 'mysecretsshhhhh';
 const expiration = '2h';
 
 module.exports = {
+  AuthenticationError: new GraphQLError (
+    'Invalid credentials',
+    {
+      extensions: {
+        code: 'UNAUTHENTICATED'
+      }}
+  ),
+
   // function for our authenticated routes
   authMiddleware: function ({req}) {
     // allows token to be sent via  req.query or headers
-    let token = req.query.token || req.headers.authorization;
+    let token = req.query.token || req.headers.authorization ||req.body.token;
 
     // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
@@ -27,8 +36,7 @@ module.exports = {
     } catch {
       console.log('Invalid token');
       // return res.status(400).json({ message: 'invalid token!' });
-      return req;
-
+      
     }
 
     // send to next endpoint

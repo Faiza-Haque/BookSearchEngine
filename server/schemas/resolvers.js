@@ -1,7 +1,7 @@
 // import user model
 const { User } = require('../models');
 // import sign token function from auth
-const { signToken } = require('../utils/auth');
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 module.exports = {
     Query: {
@@ -18,6 +18,14 @@ module.exports = {
             // res.json(foundUser);
             return foundUser;
         },
+        async me(parent, args, context) {
+            if (!context.user) {
+                throw new AuthenticationError('You need to be logged in!')
+            }
+            return User.findOne({
+                _id: context.user._id
+            })
+        }
     },
     Mutation: {
         async createUser(parent, args, context) {
@@ -29,7 +37,7 @@ module.exports = {
             }
             const token = signToken(user);
             // res.json({ token, user });
-            return ({token, user})
+            return ({ token, user })
         },
         async login(parent, args, context) {
             const user = await User.findOne({ $or: [{ username: args.username }, { email: args.email }] });
@@ -46,7 +54,7 @@ module.exports = {
             }
             const token = signToken(user);
             // res.json({ token, user });
-            return ({token, user})
+            return ({ token, user })
         },
         async saveBook(parent, args, context) {
             console.log(context.user);
