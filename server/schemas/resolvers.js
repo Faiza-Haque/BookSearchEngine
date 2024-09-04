@@ -20,8 +20,10 @@ module.exports = {
         },
         async me(parent, args, context) {
             if (!context.user) {
-                throw new AuthenticationError('You need to be logged in!')
+                throw AuthenticationError()
             }
+            const user = await user.findOne ({_id: context.user._id});
+            console.log(user)
             return User.findOne({
                 _id: context.user._id
             })
