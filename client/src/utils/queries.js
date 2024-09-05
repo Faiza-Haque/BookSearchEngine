@@ -21,7 +21,6 @@ query me {
     me {
     _id
     username
-    token
     savedBooks{
         authors
         description
