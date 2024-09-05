@@ -22,7 +22,7 @@ module.exports = {
             if (!context.user) {
                 throw AuthenticationError()
             }
-            const user = await user.findOne ({_id: context.user._id});
+            const user = await user.findOne({_id: context.user._id});
             console.log(user)
             return User.findOne({
                 _id: context.user._id
