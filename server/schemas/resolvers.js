@@ -20,10 +20,11 @@ module.exports = {
         },
         async me(parent, args, context) {
             if (!context.user) {
-                throw AuthenticationError()
+                console.log("error occurs")
+                throw AuthenticationError
             }
             const user = await User.findOne({_id: context.user._id});
-            console.log(user)
+            console.log("user:",user)
             return User.findOne({
                 _id: context.user._id
             })
@@ -66,6 +67,7 @@ module.exports = {
                     { $addToSet: { savedBooks: args } },
                     { new: true, runValidators: true }
                 );
+                console.log(updatedUser)
                 // return res.json(updatedUser);
                 return updatedUser
             } catch (err) {

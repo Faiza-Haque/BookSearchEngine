@@ -12,12 +12,15 @@ import Auth from '../utils/auth';
 import { searchGoogleBooks } from '../utils/API';
 
 import { useMutation } from '@apollo/client';
-import { SAVE_BOOK } from "../utils/mutations"
+import { SAVE_BOOK } from "../utils/mutations";
+import { GET_ME } from '../utils/queries';
 
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 const SearchBooks = () => {
-  const [saveBook] = useMutation(SAVE_BOOK)
+  const [saveBook] = useMutation(SAVE_BOOK, {
+    refetchQueries: [{ query: GET_ME }],
+  })
 
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
@@ -81,12 +84,12 @@ const SearchBooks = () => {
       // const response = await saveBook(bookToSave, token);
       const response = await saveBook({
         variables: {
-          "authors": bookToSave.authors,
-          "description": bookToSave.description,
-          "bookId": bookToSave.bookId,
-          "image": bookToSave.image,
-          "link": bookToSave.link,
-          "title": bookToSave.title
+          authors: bookToSave.authors,
+          description: bookToSave.description,
+          bookId: bookToSave.bookId,
+          image: bookToSave.image,
+          link: bookToSave.link,
+          title: bookToSave.title
         }
       })
 
