@@ -1,7 +1,13 @@
 ## Book Search Engine
 
-## Overview
+## Description
 This project is a React application that allows users to search for books using the Google Books API, save books to their account, and view their saved books. It leverages React Bootstrap for UI components and Apollo Client for interacting with a GraphQL API.
+
+## Deployed Link
+[BookSearchEngine](https://booksearchengine-uje4.onrender.com)
+
+## Screenshots
+![screenshot](./screenshots/booksearchengine.png)
 
 ## Features
 
